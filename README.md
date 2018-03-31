@@ -1,0 +1,2 @@
+# WordCount
+Hadoop Exercise
