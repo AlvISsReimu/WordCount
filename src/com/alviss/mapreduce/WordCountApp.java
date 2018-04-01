@@ -1,6 +1,7 @@
 package com.alviss.mapreduce;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -45,6 +46,14 @@ public class WordCountApp {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         // Create configuration
         Configuration conf = new Configuration();
+
+        // clear existed output file
+        Path outputPath = new Path(args[2]);
+        FileSystem fileSystem = FileSystem.get(conf);
+        if (fileSystem.exists(outputPath)) {
+            fileSystem.delete(outputPath, true);
+            System.out.println("existed output file deleted");
+        }
 
         // Create job
         Job job = Job.getInstance(conf, "wordcount");
