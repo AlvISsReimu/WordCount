@@ -69,6 +69,9 @@ public class WordCountApp {
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(LongWritable.class);
 
+        // Set combiner exec class which has the same logic as reducer
+        job.setCombinerClass(MyReducer.class);
+
         // Set reduce parameters
         job.setReducerClass(MyReducer.class);
         job.setOutputKeyClass(Text.class);
